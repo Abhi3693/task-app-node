@@ -35,12 +35,13 @@ router.use(auth.verifyUser);
 
 // Add task
 router.post('/', async (req, res, next) => {
+  console.log('task add');
   try {
-    req.body.author = req.user.id;
-    let task = await Task.create(req.body);
+    req.body.task.author = req.user.id;
+    let task = await Task.create(req.body.task);
     let user = await User.findByIdAndUpdate(
       req.user.id,
-      { $push: { tasks: task.id } },
+      { $push: { task: task.id } },
       { new: true }
     );
     res.setHeader('Content-Type', 'application/json');
@@ -57,7 +58,7 @@ router.put('/:id', async (req, res, next) => {
     let task = await Task.findById(taskId);
     let authorId = task.author.toString();
     if (authorId == req.user.id) {
-      let task = await Task.findByIdAndUpdate(taskId, req.body, {
+      let task = await Task.findByIdAndUpdate(taskId, req.body.task, {
         new: true,
       });
       res.setHeader('Content-Type', 'application/json');
