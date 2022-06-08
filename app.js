@@ -27,14 +27,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Cors config
-// app.use(function (req, res, next) {
-//   res.set('Access-Control-Allow-Origin', '*');
-//   // res.header(
-//   //   'Access-Control-Allow-Headers',
-//   //   'Origin, X-Requested-With, Content-Type, Accept'
-//   // );
-//   next();
-// });
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', '*');
+  res.setHeader('Access-Control-Allow-Headers', '*');
+  next();
+});
 
 // Routes
 app.use('/api/tasks', tasksRouter);
