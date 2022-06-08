@@ -44,7 +44,7 @@ router.post('/', async (req, res, next) => {
       { $push: { task: task.id } },
       { new: true }
     );
-    // res.set('Access-Control-Allow-Origin', '*');
+    res.set('Access-Control-Allow-Origin', '*');
     return res.status(200).json({ task: await task.taskResponse() });
   } catch (error) {
     return res.status(401).json({ errors: ['Task could not create'] });
@@ -61,7 +61,7 @@ router.put('/:id', async (req, res, next) => {
       let task = await Task.findByIdAndUpdate(taskId, req.body.task, {
         new: true,
       });
-      // res.set('Access-Control-Allow-Origin', '*');
+      res.set('Access-Control-Allow-Origin', '*');
       return res.status(200).json({ task: await task.taskResponse() });
     } else {
       return res.status(403).json({ errors: ['Only Auther can edit Task'] });
@@ -84,7 +84,7 @@ router.delete('/:id', async (req, res, next) => {
         { $pull: { tasks: taskId } },
         { new: true }
       );
-      // res.set('Access-Control-Allow-Origin', '*');
+      res.set('Access-Control-Allow-Origin', '*');
       return res.status(200).json({ task: await task.taskResponse() });
     } else {
       return res.status(403).json({ errors: ['Only Auther can Delete Task'] });
