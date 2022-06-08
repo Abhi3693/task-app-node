@@ -11,7 +11,6 @@ router.get('/', auth.optionalVerification, async (req, res, next) => {
       let user = await User.findById(req.user.id);
       if (user) {
         let token = req.headers.authorization;
-        res.setHeader('Content-Type', 'application/json');
         return res.status(200).json({ user: await user.userResponse(token) });
       } else {
         return res.status(403).json({ errors: ['could not find user'] });
@@ -33,7 +32,6 @@ router.post('/register', async (req, res, next) => {
       if (!findUser) {
         let user = await User.create(req.body.user);
         let token = await user.signToken();
-        res.setHeader('Content-Type', 'application/json');
         return res.status(200).json({ user: await user.userResponse(token) });
       } else {
         return res.status(403).json({ errors: ['User already taken'] });
@@ -70,7 +68,6 @@ router.post('/login', async (req, res, next) => {
       return res.status(401).json({ errors: ['Password is not valid'] });
     }
     let token = await user.signToken();
-    res.setHeader('Content-Type', 'application/json');
     return res.status(200).json({ user: await user.userResponse(token) });
   } catch (error) {
     return res.status(401).json({ errors: [error] });
