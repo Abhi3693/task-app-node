@@ -9,9 +9,11 @@ const tasksRouter = require('./routes/tasks');
 const usersRouter = require('./routes/users');
 
 // Connect to database
-mongoose.connect(process.env.DB_CONNECTION, (err) => {
-  console.log(err ? err : 'connected to DB!');
-});
+mongoose.Promise = global.Promise;
+mongoose
+  .connect(process.env.DB_CONNECTION)
+  .then((res) => console.log('Connected to DB'))
+  .catch((err) => console.log(err));
 
 // Instantiate app
 const app = express();
