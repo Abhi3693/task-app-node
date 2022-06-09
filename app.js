@@ -33,14 +33,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Cors config
-// app.use(function (req, res, next) {
-//   res.setHeader('Access-Control-Allow-Origin', '*');
-//   res.setHeader('Access-Control-Allow-Methods', '*');
-//   res.setHeader('Access-Control-Allow-Headers', '*');
-//   next();
-// });
-
 // Routes
 app.use('/api/tasks', tasksRouter);
 app.use('/api/users', usersRouter);
