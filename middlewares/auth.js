@@ -10,10 +10,10 @@ module.exports = {
         req.user = payload;
         next();
       } else {
-        res.status(401).json({ error: ['token required'] });
+        res.status(401).json({ error: 'token required' });
       }
     } catch (error) {
-      res.status(400).json({ error: [error] });
+      res.status(400).json({ error: 'Validation failed' });
     }
   },
 
@@ -27,10 +27,10 @@ module.exports = {
           req.user = payload;
           next();
         } else {
-          res.status(401).json({ error: ['token required'] });
+          res.status(401).json({ error: 'token required' });
         }
       } catch (error) {
-        res.status(400).json({ error: [error] });
+        res.status(400).json({ error: 'Validation failed' });
       }
     } else {
       req.user = null;

@@ -14,7 +14,7 @@ router.get('/', async (req, res, next) => {
     let newTasks = tasks.map((task) => task.taskResponse());
     return res.status(200).json({ tasks: newTasks });
   } catch (error) {
-    return res.status(401).json({ errors: ['Task could not get'] });
+    return res.status(401).json({ error: 'Task could not get' });
   }
 });
 
@@ -25,7 +25,7 @@ router.get('/:id', async (req, res, next) => {
     let task = await Task.findById(taskId);
     return res.status(200).json({ task: await task.taskResponse() });
   } catch (error) {
-    return res.status(401).json({ errors: ['Task could not get'] });
+    return res.status(401).json({ error: 'Task could not get task' });
   }
 });
 
@@ -43,7 +43,7 @@ router.post('/', async (req, res, next) => {
     );
     return res.status(200).json({ task: await task.taskResponse() });
   } catch (error) {
-    return res.status(401).json({ errors: ['Task could not create'] });
+    return res.status(401).json({ error: 'Task could not create' });
   }
 });
 
@@ -59,10 +59,10 @@ router.put('/:id', async (req, res, next) => {
       });
       return res.status(200).json({ task: await task.taskResponse() });
     } else {
-      return res.status(403).json({ errors: ['Only Auther can edit Task'] });
+      return res.status(403).json({ error: 'Only Auther can edit Task' });
     }
   } catch (error) {
-    return res.status(401).json({ errors: [error] });
+    return res.status(401).json({ error: 'Could not update task' });
   }
 });
 
@@ -81,10 +81,10 @@ router.delete('/:id', async (req, res, next) => {
       );
       return res.status(200).json({ task: await task.taskResponse() });
     } else {
-      return res.status(403).json({ errors: ['Only Auther can Delete Task'] });
+      return res.status(403).json({ error: 'Only Auther can Delete Task' });
     }
   } catch (error) {
-    return res.status(401).json({ errors: [error] });
+    return res.status(401).json({ error: 'Could not delete task' });
   }
 });
 module.exports = router;
